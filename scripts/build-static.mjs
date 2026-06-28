@@ -544,18 +544,20 @@ function pageNotebook(){
 
 function pageAbout(){
   const path='/about/';
-  return head('About — Just Thinking','A small, slow publication.',path)
+  const headline = about.headline || 'A small, slow publication.';
+  const lastWord = headline.split(' ').pop();
+  const lead = headline.slice(0, headline.length - lastWord.length).trim();
+  return head('About — Just Thinking', headline, path)
     + nav('about',path)
     + `<main class="container">
       <div class="about">
-        <div class="about-img"><img src="${rel(path,'/assets/about-portrait.jpg')}" alt="Portrait" /></div>
+        <div class="about-img"><img src="${rel(path,'/assets/'+(about.portrait||'about-portrait.jpg'))}" alt="Portrait" /></div>
         <div>
           <div class="eyebrow">About</div>
-          <h1 class="serif" style="font-size:clamp(2.5rem,5vw,4rem);margin-top:.5rem;line-height:1.05">A small, slow<br/><span class="it forest">publication.</span></h1>
+          <h1 class="serif" style="font-size:clamp(2.5rem,5vw,4rem);margin-top:.5rem;line-height:1.05">${esc(lead)}<br/><span class="it forest">${esc(lastWord)}</span></h1>
           <div style="margin-top:2rem">
-            <p>Just Thinking is a personal archive — a place to keep essays, conversations, drawings, and the kind of unfinished thoughts that usually live in the margins of a notebook.</p>
-            <p>It is run by one person, on no schedule, with no agenda except attention. There are no ads. There is no algorithm. New things appear when they are ready.</p>
-            <p class="hand sepia" style="font-size:1.5rem">— with care, J.</p>
+            ${about.paragraphs.map(p=>`<p>${esc(p)}</p>`).join('')}
+            ${about.signoff?`<p class="hand sepia" style="font-size:1.5rem">${esc(about.signoff)}</p>`:''}
           </div>
         </div>
       </div>
