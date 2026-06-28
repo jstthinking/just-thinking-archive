@@ -45,8 +45,8 @@ export const Route = createFileRoute("/essays/$slug")({
 });
 
 function EssayPage() {
-  const { essay } = Route.useLoaderData();
-  const paragraphs = essay.body.split(/\n\n+/);
+  const { essay } = Route.useLoaderData() as { essay: typeof essays[number] };
+  const paragraphs: string[] = essay.body.split(/\n\n+/);
   const related = essays.filter((e) => e.slug !== essay.slug).slice(0, 2);
 
   return (
