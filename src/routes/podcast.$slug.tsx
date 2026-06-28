@@ -27,7 +27,7 @@ export const Route = createFileRoute("/podcast/$slug")({
 });
 
 function EpisodePage() {
-  const { ep } = Route.useLoaderData();
+  const { ep } = Route.useLoaderData() as { ep: typeof episodes[number] };
   return (
     <Layout>
       <article>
