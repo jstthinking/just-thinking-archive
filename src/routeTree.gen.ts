@@ -9,38 +9,174 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SearchRouteImport } from './routes/search'
+import { Route as NotebookRouteImport } from './routes/notebook'
+import { Route as ArtworkRouteImport } from './routes/artwork'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PodcastIndexRouteImport } from './routes/podcast.index'
+import { Route as EssaysIndexRouteImport } from './routes/essays.index'
+import { Route as PodcastSlugRouteImport } from './routes/podcast.$slug'
+import { Route as EssaysSlugRouteImport } from './routes/essays.$slug'
 
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NotebookRoute = NotebookRouteImport.update({
+  id: '/notebook',
+  path: '/notebook',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArtworkRoute = ArtworkRouteImport.update({
+  id: '/artwork',
+  path: '/artwork',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PodcastIndexRoute = PodcastIndexRouteImport.update({
+  id: '/podcast/',
+  path: '/podcast/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EssaysIndexRoute = EssaysIndexRouteImport.update({
+  id: '/essays/',
+  path: '/essays/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PodcastSlugRoute = PodcastSlugRouteImport.update({
+  id: '/podcast/$slug',
+  path: '/podcast/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EssaysSlugRoute = EssaysSlugRouteImport.update({
+  id: '/essays/$slug',
+  path: '/essays/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/artwork': typeof ArtworkRoute
+  '/notebook': typeof NotebookRoute
+  '/search': typeof SearchRoute
+  '/essays/$slug': typeof EssaysSlugRoute
+  '/podcast/$slug': typeof PodcastSlugRoute
+  '/essays/': typeof EssaysIndexRoute
+  '/podcast/': typeof PodcastIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/artwork': typeof ArtworkRoute
+  '/notebook': typeof NotebookRoute
+  '/search': typeof SearchRoute
+  '/essays/$slug': typeof EssaysSlugRoute
+  '/podcast/$slug': typeof PodcastSlugRoute
+  '/essays': typeof EssaysIndexRoute
+  '/podcast': typeof PodcastIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/artwork': typeof ArtworkRoute
+  '/notebook': typeof NotebookRoute
+  '/search': typeof SearchRoute
+  '/essays/$slug': typeof EssaysSlugRoute
+  '/podcast/$slug': typeof PodcastSlugRoute
+  '/essays/': typeof EssaysIndexRoute
+  '/podcast/': typeof PodcastIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/artwork'
+    | '/notebook'
+    | '/search'
+    | '/essays/$slug'
+    | '/podcast/$slug'
+    | '/essays/'
+    | '/podcast/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/artwork'
+    | '/notebook'
+    | '/search'
+    | '/essays/$slug'
+    | '/podcast/$slug'
+    | '/essays'
+    | '/podcast'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/artwork'
+    | '/notebook'
+    | '/search'
+    | '/essays/$slug'
+    | '/podcast/$slug'
+    | '/essays/'
+    | '/podcast/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  ArtworkRoute: typeof ArtworkRoute
+  NotebookRoute: typeof NotebookRoute
+  SearchRoute: typeof SearchRoute
+  EssaysSlugRoute: typeof EssaysSlugRoute
+  PodcastSlugRoute: typeof PodcastSlugRoute
+  EssaysIndexRoute: typeof EssaysIndexRoute
+  PodcastIndexRoute: typeof PodcastIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notebook': {
+      id: '/notebook'
+      path: '/notebook'
+      fullPath: '/notebook'
+      preLoaderRoute: typeof NotebookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/artwork': {
+      id: '/artwork'
+      path: '/artwork'
+      fullPath: '/artwork'
+      preLoaderRoute: typeof ArtworkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +184,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/podcast/': {
+      id: '/podcast/'
+      path: '/podcast'
+      fullPath: '/podcast/'
+      preLoaderRoute: typeof PodcastIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/essays/': {
+      id: '/essays/'
+      path: '/essays'
+      fullPath: '/essays/'
+      preLoaderRoute: typeof EssaysIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/podcast/$slug': {
+      id: '/podcast/$slug'
+      path: '/podcast/$slug'
+      fullPath: '/podcast/$slug'
+      preLoaderRoute: typeof PodcastSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/essays/$slug': {
+      id: '/essays/$slug'
+      path: '/essays/$slug'
+      fullPath: '/essays/$slug'
+      preLoaderRoute: typeof EssaysSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  ArtworkRoute: ArtworkRoute,
+  NotebookRoute: NotebookRoute,
+  SearchRoute: SearchRoute,
+  EssaysSlugRoute: EssaysSlugRoute,
+  PodcastSlugRoute: PodcastSlugRoute,
+  EssaysIndexRoute: EssaysIndexRoute,
+  PodcastIndexRoute: PodcastIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
